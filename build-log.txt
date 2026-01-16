@@ -1,0 +1,51 @@
+﻿
+> intentlab@0.1.0 build
+> next build
+
+Γû▓ Next.js 16.1.1 (Turbopack)
+- Environments: .env.local, .env
+
+node.exe : ΓÜá The "middleware" file convention is 
+deprecated. Please use "proxy" instead. Learn more: 
+https://nextjs.org/docs/messages/middleware-to-proxy
+At C:\Program Files\nodejs\npm.ps1:29 char:3
++   & $NODE_EXE $NPM_CLI_JS $args
++   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (ΓÜá Th 
+   e "middle...leware-to-proxy:String) [], RemoteE  
+  xception
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+  Creating an optimized production build ...
+Γ£ô Compiled successfully in 3.0s
+  Running TypeScript ...
+  Collecting page data using 27 workers ...
+  Generating static pages using 27 workers (0/15) ...
+  Generating static pages using 27 workers (3/15) 
+  Generating static pages using 27 workers (7/15) 
+  Generating static pages using 27 workers (11/15) 
+Γ£ô Generating static pages using 27 workers (15/15) in 628.7ms
+  Finalizing page optimization ...
+
+Route (app)
+Γöî Γùï /
+Γö£ Γùï /_not-found
+Γö£ ╞Æ /api/simulate
+Γö£ ╞Æ /api/stripe/checkout
+Γö£ ╞Æ /api/stripe/portal
+Γö£ ╞Æ /api/stripe/webhook
+Γö£ ╞Æ /auth/callback
+Γö£ Γùï /dashboard
+Γö£ Γùï /login
+Γö£ Γùï /new
+Γö£ Γùï /pricing
+Γö£ ╞Æ /results/[id]
+Γö£ Γùï /settings
+Γöö Γùï /trust
+
+
+╞Æ Proxy (Middleware)
+
+Γùï  (Static)   prerendered as static content
+╞Æ  (Dynamic)  server-rendered on demand
+

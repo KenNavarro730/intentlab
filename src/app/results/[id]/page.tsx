@@ -204,7 +204,7 @@ export default function ResultsPage() {
                 headStyles: { fillColor: [26, 24, 22], textColor: 255 },
                 styles: { fontSize: 10, cellPadding: 4, valign: 'middle' },
                 columnStyles: {
-                    0: { fontStyle: 'bold', width: 40 },
+                    0: { fontStyle: 'bold', cellWidth: 40 },
                     1: { fontStyle: 'bold', fontSize: 12, textColor: [217, 119, 87] }
                 }
             });

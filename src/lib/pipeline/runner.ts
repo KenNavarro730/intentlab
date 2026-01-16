@@ -73,7 +73,6 @@ export async function runPipeline(
     // Get cost estimate
     const estimate = estimateCost(
         fullConfig.nRespondents,
-        fullConfig.nSamplesPerRespondent,
         fullConfig.method
     );
 
