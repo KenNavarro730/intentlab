@@ -23,6 +23,7 @@ import {
   Baby
 } from "lucide-react";
 import { Logo } from '@/components/ui/logo';
+import { MobileNav } from '@/components/ui/mobile-nav';
 
 export default function LandingPage() {
   return (
@@ -34,7 +35,8 @@ export default function LandingPage() {
             <Link href="/">
               <Logo size="lg" />
             </Link>
-            <div className="flex items-center gap-4">
+            {/* Desktop Navigation */}
+            <div className="hidden md:flex items-center gap-4">
               <Link href="#features" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
                 Features
               </Link>
@@ -54,9 +56,12 @@ export default function LandingPage() {
                 </Link>
               </Button>
             </div>
+            {/* Mobile Navigation */}
+            <MobileNav />
           </div>
         </div>
       </nav>
+
 
       {/* Hero Section */}
       <section className="relative overflow-hidden">

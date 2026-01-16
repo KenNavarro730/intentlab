@@ -17,14 +17,14 @@ At C:\Program Files\nodejs\npm.ps1:29 char:3
     + FullyQualifiedErrorId : NativeCommandError
  
   Creating an optimized production build ...
-Γ£ô Compiled successfully in 3.0s
+Γ£ô Compiled successfully in 4.0s
   Running TypeScript ...
   Collecting page data using 27 workers ...
   Generating static pages using 27 workers (0/15) ...
   Generating static pages using 27 workers (3/15) 
   Generating static pages using 27 workers (7/15) 
   Generating static pages using 27 workers (11/15) 
-Γ£ô Generating static pages using 27 workers (15/15) in 628.7ms
+Γ£ô Generating static pages using 27 workers (15/15) in 742.8ms
   Finalizing page optimization ...
 
 Route (app)
