@@ -1,0 +1,151 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+// ============================================================================
+// User & Workspace
+// ============================================================================
+
+model User {
+  id            String       @id @default(cuid())
+  email         String       @unique
+  name          String?
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+  
+  workspaces    Membership[]
+  simulations   Simulation[]
+}
+
+model Workspace {
+  id          String       @id @default(cuid())
+  name        String
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  
+  // Usage limits
+  monthlySimulations Int    @default(10)
+  usedSimulations    Int    @default(0)
+  
+  members     Membership[]
+  concepts    ProductConcept[]
+  segments    AudienceSegment[]
+  simulations Simulation[]
+}
+
+model Membership {
+  id          String    @id @default(cuid())
+  role        String    @default("member") // owner, admin, member
+  createdAt   DateTime  @default(now())
+  
+  userId      String
+  user        User      @relation(fields: [userId], references: [id])
+  
+  workspaceId String
+  workspace   Workspace @relation(fields: [workspaceId], references: [id])
+  
+  @@unique([userId, workspaceId])
+}
+
+// ============================================================================
+// Product Concepts
+// ============================================================================
+
+model ProductConcept {
+  id            String   @id @default(cuid())
+  name          String
+  category      String
+  description   String
+  features      String   // JSON array
+  claims        String   // JSON array
+  positioning   String?
+  
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  
+  workspaceId   String
+  workspace     Workspace @relation(fields: [workspaceId], references: [id])
+  
+  simulations   Simulation[]
+}
+
+// ============================================================================
+// Audience Segments
+// ============================================================================
+
+model AudienceSegment {
+  id            String   @id @default(cuid())
+  name          String
+  definition    String   // JSON: personas array
+  
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  
+  workspaceId   String
+  workspace     Workspace @relation(fields: [workspaceId], references: [id])
+  
+  runs          SimulationRun[]
+}
+
+// ============================================================================
+// Simulations
+// ============================================================================
+
+model Simulation {
+  id            String   @id @default(cuid())
+  name          String?
+  status        String   @default("pending") // pending, running, completed, failed
+  
+  // Configuration
+  pricePoints   String   // JSON array of numbers
+  nRespondents  Int      @default(50)
+  ssrConfig     String   // JSON: { epsilon, temperature }
+  
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  completedAt   DateTime?
+  error         String?
+  
+  workspaceId   String
+  workspace     Workspace @relation(fields: [workspaceId], references: [id])
+  
+  conceptId     String
+  concept       ProductConcept @relation(fields: [conceptId], references: [id])
+  
+  userId        String
+  user          User @relation(fields: [userId], references: [id])
+  
+  runs          SimulationRun[]
+}
+
+model SimulationRun {
+  id            String   @id @default(cuid())
+  pricePoint    Float
+  
+  // Results (JSON)
+  likertPmf     String   // JSON array of 5 numbers
+  expectedLikert Float
+  top2Box       Float
+  bottom2Box    Float
+  entropy       Float
+  confidence    String   // JSON: { lower, upper }
+  
+  // Sample rationales
+  rationales    String   // JSON array of strings
+  
+  createdAt     DateTime @default(now())
+  
+  simulationId  String
+  simulation    Simulation @relation(fields: [simulationId], references: [id])
+  
+  segmentId     String
+  segment       AudienceSegment @relation(fields: [segmentId], references: [id])
+}
